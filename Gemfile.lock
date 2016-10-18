@@ -25,6 +25,9 @@ GEM
       nokogiri (~> 1.6)
       ntlm-http (~> 0.1, >= 0.1.1)
       webrobots (>= 0.0.9, < 0.2)
+    mechanize-progressbar (0.2.0)
+      mechanize (>= 1.0.0)
+      progressbar (>= 0.9.0)
     method_source (0.8.2)
     mime-types (3.1)
       mime-types-data (~> 3.2015)
@@ -38,6 +41,7 @@ GEM
     ntlm-http (0.1.1)
     opn (1.0.25)
     pkg-config (1.1.7)
+    progressbar (0.21.0)
     pry (0.10.4)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -62,14 +66,15 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  crack
-  json
-  mechanize
-  pry
+  crack (~> 0.4.3)
+  json (~> 2.0.2)
+  mechanize (~> 2.7.5)
+  mechanize-progressbar (~> 0.2.0)
+  pry (~> 0.10.4)
   redis (~> 3.2)
   rubyzip (>= 1.0.0)
   wget (~> 1.0, >= 1.0.24)
-  zip-zip
+  zip-zip (~> 0.3)
 
 RUBY VERSION
    ruby 2.3.1p112

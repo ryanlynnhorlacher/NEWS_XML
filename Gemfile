@@ -2,10 +2,8 @@ source 'https://rubygems.org'
 ruby '2.3.1'
 
 gem 'redis', '~>3.2'
-gem 'rubyzip', '>= 1.0.0' # will load new rubyzip version
-gem 'zip-zip' # will load compatibility for old rubyzip API.
-gem 'mechanize'
-gem 'pry'
-gem 'json'
-gem 'crack'
-gem 'wget', '~> 1.0', '>= 1.0.24'
+gem 'rubyzip', '>= 1.0.0'
+gem 'zip-zip', '~> 0.3'
+gem 'mechanize', '~> 2.7.5'
+gem 'pry', '~> 0.10.4'
+gem 'crack', '~> 0.4.3'

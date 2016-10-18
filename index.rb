@@ -1,26 +1,23 @@
 require 'redis'
 require 'zip'
-require 'wget/version/version.rb'
 require 'mechanize'
 require 'pry'
-require 'json'
 require 'crack'
 
 
+
 red = Redis.new
-
 file_names = []
-
 mechanize = Mechanize.new
+
+puts 'Finding available zip files'
 page = mechanize.get('http://feed.omgili.com/5Rh5AMTrc4Pv/mainstream/posts')
 array = page.search('table').search('tr')
+puts "#{array.length - 7} files found"
 array.slice(3, array.length - 4).each do |row|
-	file_names << row.search('td').first.content
-end
-
-file_names.each do |file_name|
-
-	file = `wget -O zip_file.zip http://feed.omgili.com/5Rh5AMTrc4Pv/mainstream/posts/"#{file_name}"`
+	filename = row.search('td').first.content
+	puts "Downloading #{filename}"
+	mechanize.get("http://feed.omgili.com/5Rh5AMTrc4Pv/mainstream/posts/#{filename}").save!('./zip_file.zip')
 	if File.zero?("./zip_file.zip") == false
 		Zip::File.open('./zip_file.zip') do |zip_file|
 			zip_file.each do |entry|
@@ -28,14 +25,16 @@ file_names.each do |file_name|
 			    parsed = Crack::XML.parse(content)
 			    if red.sadd("SNEWS_XML", "#{parsed["document"]["discussion_title"]}")
 			    	red.rpush("NEWS_XML", content)
-			    	puts "Added #{parsed["document"]["discussion_title"]}"
+			    	puts "ADDED: #{parsed["document"]["discussion_title"]}"
 			    else
-			    	puts "SKIPPING THIS ONE!"
+			    	puts "ALREADY EXISTS: #{parsed["document"]["discussion_title"]}"
 			    end
 			end
 		end
 	end
 end
+
+
 
 
 
